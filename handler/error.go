@@ -1,9 +1,9 @@
 package handler
 
 import (
+	"html/template"
 	"log"
 	"net/http"
-	"html/template"
 )
 
 func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
