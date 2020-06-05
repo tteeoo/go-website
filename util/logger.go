@@ -5,6 +5,8 @@ import (
 	"io"
 	"log"
 	"os"
+	"strconv"
+	"time"
 )
 
 var Logger logger
@@ -19,7 +21,7 @@ type logger struct {
 func init() {
 
 	// Log to terminal and a file
-	LogFile, err := os.Create("./go-website.log")
+	LogFile, err := os.Create("./log/go-website-" + strconv.Itoa(int(time.Now().Unix())) + ".log")
 	if err != nil {
 		log.Fatal(err)
 	}
