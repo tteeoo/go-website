@@ -5,7 +5,7 @@ html, body {
 
 body {
     font-family: FiraMono;
-    background-color: #eee;
+    background-color: #efefef;
     color: #111;
 }
 
@@ -60,6 +60,10 @@ body {
 #gh > img {
     width: auto;
     height: 24px;
+}
+
+#gh > img:hover {
+    opacity: 80%;
 }
 
 @media only screen and (max-width: 400px) {
