@@ -22,7 +22,7 @@ func main() {
 	http.HandleFunc("/projects", rateLimit(handler.ProjectsHandler))
 
 	http.HandleFunc("/static/", handler.StaticHandler)
-	http.HandleFunc("/api/projects", handler.ApiProjectHandler)
+	http.HandleFunc("/api/projects", handler.APIProjectHandler)
 
 	// Start the server
 	log.Fatal(http.ListenAndServe("127.0.0.1:8000", nil))

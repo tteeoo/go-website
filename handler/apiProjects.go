@@ -32,8 +32,8 @@ func goodProject(a string) bool {
 	return false
 }
 
-// ApiProjectHandler handles the /api/projects page
-func ApiProjectHandler(w http.ResponseWriter, r *http.Request) {
+// APIProjectHandler handles the /api/projects page
+func APIProjectHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Rate limit
 	// Don't use GitHub API if too fast

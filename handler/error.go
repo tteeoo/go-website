@@ -10,6 +10,7 @@ type errorPage struct {
 	Text  string
 }
 
+// ErrorHandler handles errors by taking a status code and rendering a template with text
 func ErrorHandler(w http.ResponseWriter, r *http.Request, status int) {
 
 	w.WriteHeader(status)
