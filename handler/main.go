@@ -23,7 +23,7 @@ var projectsHTML string
 // log.Fatal on error
 func readHTML(name string) string {
 
-	file := "./templates/" + name + ".html"
+	file := "./template/" + name + ".html"
 
 	b, err := ioutil.ReadFile(file)
 
