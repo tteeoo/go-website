@@ -7,7 +7,7 @@ import (
 
 type errorPage struct {
 	Errno int
-	Text string
+	Text  string
 }
 
 func ErrorHandler(w http.ResponseWriter, r *http.Request, status int) {
@@ -23,7 +23,7 @@ func ErrorHandler(w http.ResponseWriter, r *http.Request, status int) {
 
 	ep := errorPage{
 		Errno: status,
-		Text: http.StatusText(status),
+		Text:  http.StatusText(status),
 	}
 
 	err = t.Execute(w, ep)
