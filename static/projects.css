@@ -8,9 +8,11 @@
     margin: 8px;
     padding: 8px;
     min-height: 100px;
+    max-width: 180px;
     border-radius: 8px;
-    max-width: 50%;
     flex-grow: 1;
+    flex-shrink: 1;
+    word-wrap: break-word;
 }
 
 .project:hover {
@@ -39,7 +41,9 @@
 
 #projs {
     display: none;
+    justify-content: center;
     flex-flow: row wrap;
+    flex-basis: 50%;
 }
 
 @media only screen and (max-width: 460px) {
