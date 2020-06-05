@@ -41,6 +41,7 @@ func APIProjectHandler(w http.ResponseWriter, r *http.Request) {
 	// Uses last sent data
 	limiter := limiter.GetLimiter(r.RemoteAddr)
 	if !limiter.Allow() {
+		util.Logger.Println("API SPAM: " + r.RemoteAddr)
 		w.Header().Set("content-type", "application/json")
 		fmt.Fprint(w, string(send))
 		return

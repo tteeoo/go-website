@@ -1,7 +1,6 @@
 package main
 
 // TODO:
-// - Get the styles just right
 // - Create Dockerfile
 
 import (
