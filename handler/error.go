@@ -10,14 +10,14 @@ type errorPage struct {
 	Text string
 }
 
-func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
+func ErrorHandler(w http.ResponseWriter, r *http.Request, status int) {
 
 	w.WriteHeader(status)
 
 	// Fill in error template with the error nubmer and text
 	t, err := template.New("error").Parse(errorHTML)
 	if err != nil {
-		errorHandler(w, r, http.StatusInternalServerError)
+		ErrorHandler(w, r, http.StatusInternalServerError)
 		return
 	}
 
@@ -28,7 +28,7 @@ func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
 
 	err = t.Execute(w, ep)
 	if err != nil {
-		errorHandler(w, r, http.StatusInternalServerError)
+		ErrorHandler(w, r, http.StatusInternalServerError)
 		return
 	}
 }

@@ -49,7 +49,7 @@ func ApiProjectHandler(w http.ResponseWriter, r *http.Request) {
 	gRepos, _, err := client.Repositories.List(context.Background(), "tteeoo", nil)
 	if err != nil {
 		log.Println(err)
-		errorHandler(w, r, http.StatusInternalServerError)
+		ErrorHandler(w, r, http.StatusInternalServerError)
 	}
 
 	// Iterate repos
@@ -92,7 +92,7 @@ func ApiProjectHandler(w http.ResponseWriter, r *http.Request) {
 	send, err = json.Marshal(repos)
 	if err != nil {
 		log.Println(err)
-		errorHandler(w, r, http.StatusInternalServerError)
+		ErrorHandler(w, r, http.StatusInternalServerError)
 	}
 
 	w.Header().Set("content-type", "application/json")
