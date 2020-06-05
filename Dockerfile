@@ -4,7 +4,8 @@ FROM golang:1.13
 
 WORKDIR /go/src/app
 COPY . .
+RUN mkdir /go/src/app/log
 
 RUN go install .
 
-CMD ["app"]
+CMD ["go-website"]
