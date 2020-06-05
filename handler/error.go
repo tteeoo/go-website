@@ -10,6 +10,7 @@ func errorHandler(w http.ResponseWriter, r *http.Request, status int) {
 
 	w.WriteHeader(status)
 
+	// Fill in error template with the error nubmer
 	t, err := template.New("error").Parse(errorHTML)
 	if err != nil {
 		log.Println(err)

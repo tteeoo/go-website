@@ -8,6 +8,7 @@ import (
 	"net/http"
 )
 
+// Put projects to appear on projects page here
 var projects = []string{"rco", "sest", "go-website", "jschess", "claymore"}
 
 type repo struct {
@@ -27,16 +28,21 @@ func goodProject(a string) bool {
 	return false
 }
 
+// ApiApiProjectHandler handles the /api/projects page
 func ApiProjectHandler(w http.ResponseWriter, r *http.Request) {
 
+	// Get all my repos
 	gRepos, _, err := client.Repositories.List(context.Background(), "tteeoo", nil)
 	if err != nil {
 		log.Println(err)
 		errorHandler(w, r, http.StatusInternalServerError)
 	}
 
+	// Iterate repos
 	var repos []repo
 	for _, gR := range gRepos {
+
+		// continue if in is not in projects
 		if !goodProject(*gR.Name) {
 			continue
 		}
@@ -46,6 +52,8 @@ func ApiProjectHandler(w http.ResponseWriter, r *http.Request) {
 			URL:  *gR.HTMLURL,
 		}
 
+		// Ensure there are no nil pointers before dereferencing
+		// Set fallback color if the language isn't in colors or is nil
 		if gR.Language != nil {
 			re.Lang = *gR.Language
 
@@ -66,6 +74,7 @@ func ApiProjectHandler(w http.ResponseWriter, r *http.Request) {
 		repos = append(repos, re)
 	}
 
+	// Send repos as JSON
 	send, err := json.Marshal(repos)
 	if err != nil {
 		log.Println(err)
