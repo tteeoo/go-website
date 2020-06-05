@@ -4,9 +4,10 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/tteeoo/go-website/limit"
-	"log"
 	"net/http"
+
+	"github.com/tteeoo/go-website/limit"
+	"github.com/tteeoo/go-website/util"
 )
 
 // Put projects to appear on projects page here
@@ -48,7 +49,7 @@ func APIProjectHandler(w http.ResponseWriter, r *http.Request) {
 	// Get all my repos
 	gRepos, _, err := client.Repositories.List(context.Background(), "tteeoo", nil)
 	if err != nil {
-		log.Println(err)
+		util.Logger.Println(err)
 		ErrorHandler(w, r, http.StatusInternalServerError)
 	}
 
@@ -91,7 +92,7 @@ func APIProjectHandler(w http.ResponseWriter, r *http.Request) {
 	// Send repos as JSON
 	send, err = json.Marshal(repos)
 	if err != nil {
-		log.Println(err)
+		util.Logger.Println(err)
 		ErrorHandler(w, r, http.StatusInternalServerError)
 	}
 

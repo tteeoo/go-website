@@ -3,11 +3,13 @@ package handler
 import (
 	"context"
 	"encoding/json"
-	"github.com/google/go-github/github"
-	"golang.org/x/oauth2"
 	"io/ioutil"
 	"log"
 	"os"
+
+	"github.com/google/go-github/github"
+	"github.com/tteeoo/go-website/util"
+	"golang.org/x/oauth2"
 )
 
 var client *github.Client
@@ -31,7 +33,7 @@ func readHTML(name string) string {
 		log.Fatal(err)
 	}
 
-	log.Println("Read HTML file: " + file)
+	util.Logger.Println("Read HTML file: " + file)
 
 	return string(b)
 }
@@ -47,18 +49,18 @@ func init() {
 	// Read colors file
 	b, err := ioutil.ReadFile("./static/colors.json")
 	if err != nil {
-		log.Fatal(err)
+		util.Logger.Fatal(err)
 	}
 
 	err = json.Unmarshal(b, &colors)
 	if err != nil {
-		log.Fatal(err)
+		util.Logger.Fatal(err)
 	}
 
 	// Create GitHub client
 	token, exists := os.LookupEnv("GH_WEB_TOKEN")
 	if !exists {
-		log.Fatal("GH_WEB_TOKEN not in environment")
+		util.Logger.Fatal("GH_WEB_TOKEN not in environment")
 	}
 
 	ctx := context.Background()

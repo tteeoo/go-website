@@ -19,7 +19,6 @@ func main() {
 
 	// Setup logger
 	defer util.LogFile.Close()
-	logger := util.Logger
 
 	// Handle routes
 	http.HandleFunc("/", rateLimit(handler.IndexHandler))
@@ -30,8 +29,8 @@ func main() {
 	http.HandleFunc("/api/projects", handler.APIProjectHandler)
 
 	// Start the server
-	logger.Println("Attempting to listen on http://" + addr)
-	logger.Fatal(http.ListenAndServe(addr, nil))
+	util.Logger.Println("Attempting to listen on http://" + addr)
+	util.Logger.Fatal(http.ListenAndServe(addr, nil))
 }
 
 func rateLimit(handle func(w http.ResponseWriter, r *http.Request)) func(w http.ResponseWriter, r *http.Request) {
@@ -42,6 +41,7 @@ func rateLimit(handle func(w http.ResponseWriter, r *http.Request)) func(w http.
 			return
 		}
 
+		util.Logger.Println("HIT: " + r.RemoteAddr + " " + r.RequestURI)
 		handle(w, r)
 	}
 }
