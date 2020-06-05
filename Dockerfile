@@ -7,7 +7,4 @@ COPY . .
 
 RUN go install .
 
-RUN mkdir /mudcord
-WORKDIR /mudcord
-
 CMD ["app"]
