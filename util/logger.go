@@ -40,7 +40,8 @@ func (l *logger) Println(text interface{}) {
 }
 
 func (l *logger) Fatal(text interface{}) {
-	l.wrappedLogger.Fatal(text)
+	l.wrappedLogger.Println(text)
 	logFileBuffer.Flush()
 	stdErrBuffer.Flush()
+	os.Exit(1)
 }
