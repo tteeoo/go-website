@@ -16,9 +16,7 @@ type errorPage struct {
 func ErrorHandler(w http.ResponseWriter, r *http.Request, status int) {
 
 	// Protect log file from too many requests
-	if status != http.StatusTooManyRequests {
-		util.Logger.Println("ERROR: " + util.GetRemoteAddr(r) + " " + strconv.Itoa(status))
-	}
+	util.Logger.Println("ERROR: " + util.GetRemoteAddr(r) + " " + strconv.Itoa(status))
 
 	w.WriteHeader(status)
 

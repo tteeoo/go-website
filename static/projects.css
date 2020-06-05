@@ -7,9 +7,10 @@
     border: 2px solid #666;
     margin: 8px;
     padding: 8px;
-    width: 180px;
     min-height: 100px;
     border-radius: 8px;
+    max-width: 50%;
+    flex-grow: 1;
 }
 
 .project:hover {
@@ -43,6 +44,6 @@
 
 @media only screen and (max-width: 460px) {
     .project {
-	width: 100%;
+	max-width: 100%;
     }
 }
