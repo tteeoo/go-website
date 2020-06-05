@@ -40,3 +40,9 @@
     display: none;
     flex-flow: row wrap;
 }
+
+@media only screen and (max-width: 460px) {
+    .project {
+	width: 100%;
+    }
+}
