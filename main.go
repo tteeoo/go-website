@@ -41,13 +41,13 @@ func main() {
 
 func rateLimit(handle func(w http.ResponseWriter, r *http.Request)) func(w http.ResponseWriter, r *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
-		limiter := limiter.GetLimiter(r.RemoteAddr)
+		limiter := limiter.GetLimiter(util.GetRemoteAddr(r))
 		if !limiter.Allow() {
 			handler.ErrorHandler(w, r, http.StatusTooManyRequests)
 			return
 		}
 
-		util.Logger.Println("HIT: " + r.RemoteAddr + " " + r.RequestURI)
+		util.Logger.Println("HIT: " + util.GetRemoteAddr(r) + " " + r.RequestURI)
 		handle(w, r)
 	}
 }

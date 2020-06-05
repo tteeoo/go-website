@@ -39,9 +39,9 @@ func APIProjectHandler(w http.ResponseWriter, r *http.Request) {
 	// Rate limit
 	// Don't use GitHub API if too fast
 	// Uses last sent data
-	limiter := limiter.GetLimiter(r.RemoteAddr)
+	limiter := limiter.GetLimiter(util.GetRemoteAddr(r))
 	if !limiter.Allow() {
-		util.Logger.Println("API SPAM: " + r.RemoteAddr)
+		util.Logger.Println("API SPAM: " + util.GetRemoteAddr(r))
 		w.Header().Set("content-type", "application/json")
 		fmt.Fprint(w, string(send))
 		return
