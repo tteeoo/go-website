@@ -1,7 +1,6 @@
 package main
 
 // TODO:
-// - Add content
 // - Get the styles just right
 // - Create Dockerfile
 
