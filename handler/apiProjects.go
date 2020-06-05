@@ -6,10 +6,14 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"github.com/tteeoo/go-website/limit"
 )
 
 // Put projects to appear on projects page here
 var projects = []string{"rco", "sest", "go-website", "jschess", "claymore"}
+
+var limiter = limit.NewIPRateLimiter(1, 1)
+var send = []byte{}
 
 type repo struct {
 	Name  string
@@ -28,8 +32,18 @@ func goodProject(a string) bool {
 	return false
 }
 
-// ApiApiProjectHandler handles the /api/projects page
+// ApiProjectHandler handles the /api/projects page
 func ApiProjectHandler(w http.ResponseWriter, r *http.Request) {
+
+	// Rate limit
+	// Don't use GitHub API if too fast
+	// Uses last sent data
+	limiter := limiter.GetLimiter(r.RemoteAddr)
+	if !limiter.Allow() {
+		w.Header().Set("content-type", "application/json")
+		fmt.Fprint(w, string(send))
+		return
+	}
 
 	// Get all my repos
 	gRepos, _, err := client.Repositories.List(context.Background(), "tteeoo", nil)
@@ -75,7 +89,7 @@ func ApiProjectHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Send repos as JSON
-	send, err := json.Marshal(repos)
+	send, err = json.Marshal(repos)
 	if err != nil {
 		log.Println(err)
 		errorHandler(w, r, http.StatusInternalServerError)
