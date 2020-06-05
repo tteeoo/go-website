@@ -1,3 +1,8 @@
+#loading {
+    margin: auto;
+    display: none;
+}
+
 .project {
     border: 2px solid #666;
     margin: 8px;
