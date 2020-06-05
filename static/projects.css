@@ -1,0 +1,44 @@
+.project {
+    border: 2px solid #666;
+    margin: 8px;
+    padding: 8px;
+    width: 180px;
+    border-radius: 8px;
+}
+
+.project:hover {
+    background-color: #efefef;
+    border-color: #333;
+    color: #000;
+}
+
+.project-title > * {
+    display: inline;
+}
+
+.dot {
+    height: 12px;
+    width: 12px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0px 4px;
+}
+
+.lang {
+    font-size: x-small;
+    vertical-align: middle;
+}
+
+#projs {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+#loading {
+    margin: auto;
+    padding: 16px;
+    display: block;
+    width: 48px;
+}
+

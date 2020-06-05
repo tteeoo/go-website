@@ -12,6 +12,7 @@ func main() {
 	http.HandleFunc("/", handler.IndexHandler)
 	http.HandleFunc("/about", handler.AboutHandler)
 	http.HandleFunc("/static/", handler.StaticHandler)
+	http.HandleFunc("/projects", handler.ProjectsHandler)
 	http.HandleFunc("/api/projects", handler.ApiProjectHandler)
 
 	// Start the server

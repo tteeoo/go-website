@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-var projects = []string{"tteeoo/rco", "tteeoo/sest"}
+var projects = []string{"rco", "sest", "go-website", "jschess", "claymore"}
 
 type repo struct {
 	Name  string
@@ -37,12 +37,12 @@ func ApiProjectHandler(w http.ResponseWriter, r *http.Request) {
 
 	var repos []repo
 	for _, gR := range gRepos {
-		if !goodProject(*gR.FullName) {
+		if !goodProject(*gR.Name) {
 			continue
 		}
 
 		re := repo{
-			Name: *gR.FullName,
+			Name: *gR.Name,
 			URL:  *gR.HTMLURL,
 		}
 
@@ -51,12 +51,12 @@ func ApiProjectHandler(w http.ResponseWriter, r *http.Request) {
 
 			color, exists := colors[*gR.Language]
 			if !exists {
-				re.Color = "#383838"
+				re.Color = "background-color: #383838"
 			} else {
-				re.Color = color
+				re.Color = "background-color: " + color
 			}
 		} else {
-			re.Color = "#383838"
+			re.Color = "background-color: #383838"
 		}
 
 		if gR.Description != nil {
