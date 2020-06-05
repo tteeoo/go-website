@@ -1,3 +1,11 @@
+`
+TODO:
+- Rate limit /api/projects endpoint
+- Add content
+- Get the styles just right
+- Create Dockerfile
+`
+
 package main
 
 import (
