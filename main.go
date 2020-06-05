@@ -1,8 +1,5 @@
 package main
 
-// TODO:
-// - Create Dockerfile
-
 import (
 	"github.com/tteeoo/go-website/handler"
 	"github.com/tteeoo/go-website/limit"
