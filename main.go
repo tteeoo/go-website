@@ -8,11 +8,21 @@ import (
 	"github.com/tteeoo/go-website/limit"
 	"github.com/tteeoo/go-website/util"
 	"net/http"
+	"os"
 )
 
-const addr = "127.0.0.1:8000"
+var addr string
 
 var limiter = limit.NewIPRateLimiter(1, 5)
+
+func init() {
+
+	// Get addr if set
+	addr = os.Getenv("WEB_ADDR")
+	if len(addr) == 0 {
+		addr = "127.0.0.1:8000"
+	}
+}
 
 func main() {
 
