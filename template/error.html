@@ -6,11 +6,11 @@
 	<link rel="stylesheet" type="text/css" href="/static/main.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="shortcut icon" type="image/jpeg" href="/static/favicon.jpg"> 
-	<title>HTTP Error: {{.}}</title>
+	<title>HTTP Error: {{.Errno}}</title>
     </head>
     <body>
 	<div id="wrapper">
-	    <h1 id="title">HTTP Error: {{.}}</h1>
+	    <h1 id="title">HTTP Error: {{.Errno}}</h1>
 	    <div id="bar">
 		<a class="page-link" href="/">home</a>
 		<a class="page-link" href="/about">about</a>
@@ -18,7 +18,7 @@
 	    </div>
 	    <div id="body">
 		<p>
-		    An error occured.
+		    {{.Text}}
 		</p>
 	    </div>
 	</div>
