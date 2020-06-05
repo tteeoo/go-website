@@ -3,6 +3,8 @@ package handler
 import (
 	"html/template"
 	"net/http"
+	"github.com/tteeoo/go-website/util"
+	"strconv"
 )
 
 type errorPage struct {
@@ -12,6 +14,8 @@ type errorPage struct {
 
 // ErrorHandler handles errors by taking a status code and rendering a template with text
 func ErrorHandler(w http.ResponseWriter, r *http.Request, status int) {
+
+	util.Logger.Println(r.RemoteAddr + " got HTTP Error: " + strconv.Itoa(status))
 
 	w.WriteHeader(status)
 

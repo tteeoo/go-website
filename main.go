@@ -7,13 +7,19 @@ package main
 import (
 	"github.com/tteeoo/go-website/handler"
 	"github.com/tteeoo/go-website/limit"
-	"log"
+	"github.com/tteeoo/go-website/util"
 	"net/http"
 )
+
+const addr = "127.0.0.1:8000"
 
 var limiter = limit.NewIPRateLimiter(1, 5)
 
 func main() {
+
+	// Setup logger
+	defer util.LogFile.Close()
+	logger := util.Logger
 
 	// Handle routes
 	http.HandleFunc("/", rateLimit(handler.IndexHandler))
@@ -24,7 +30,8 @@ func main() {
 	http.HandleFunc("/api/projects", handler.APIProjectHandler)
 
 	// Start the server
-	log.Fatal(http.ListenAndServe("127.0.0.1:8000", nil))
+	logger.Println("Attempting to listen on http://" + addr)
+	logger.Fatal(http.ListenAndServe(addr, nil))
 }
 
 func rateLimit(handle func(w http.ResponseWriter, r *http.Request)) func(w http.ResponseWriter, r *http.Request) {
