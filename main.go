@@ -30,6 +30,8 @@ func main() {
 	http.HandleFunc("/", rateLimit(handler.IndexHandler))
 	http.HandleFunc("/about", rateLimit(handler.AboutHandler))
 	http.HandleFunc("/projects", rateLimit(handler.ProjectsHandler))
+	http.HandleFunc("/robots.txt", rateLimit(handler.RootHandler))
+	http.HandleFunc("/sitemap.xml", rateLimit(handler.RootHandler))
 
 	http.HandleFunc("/static/", handler.StaticHandler)
 	http.HandleFunc("/api/projects", handler.APIProjectHandler)
