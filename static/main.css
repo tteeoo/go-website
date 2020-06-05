@@ -1,0 +1,68 @@
+html, body {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: FiraMono;
+    background-color: #eee;
+    color: #111;
+}
+
+#wrapper {
+    width: 40%;
+    min-width: 400px;
+    margin: 16px auto;
+    background-color: #eee;
+    border: 2px solid #333;
+    border-radius: 8px;
+    text-align: center;
+}
+
+#bar {
+    background-color: #eee;
+    border-top: 2px solid #444;
+    border-bottom: 2px solid #444;
+    width: 100%;
+}
+
+.page-link {
+    text-decoration: none;
+    color: #2222dd;
+    padding: 0 6px;
+}
+
+.page-link:hover {
+    text-decoration: underline;
+    color: #1111ee;
+}
+
+#body {
+    text-align: left;
+    padding: 14px;
+}
+
+#footer {
+    width: 40%;
+    min-width: 400px;
+    margin: 16px auto;
+}
+
+#copy {
+    margin-left: 8px;
+}
+
+#gh {
+    float: right;
+    margin-right: 8px;
+}
+
+#gh > img {
+    width: auto;
+    height: 24px;
+}
+
+@font-face {
+    font-family: FiraMono;
+    src: url(/static/FiraMono-Regular.ttf);
+}

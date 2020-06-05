@@ -16,6 +16,7 @@ var colors map[string]string
 
 var indexHTML string
 var errorHTML string
+var aboutHTML string
 
 // readHTML reads an html file and returns the contents as a string
 // log.Fatal on error
@@ -38,10 +39,11 @@ func init() {
 
 	// Read HTML into memory for faster requests
 	indexHTML = readHTML("index")
+	aboutHTML = readHTML("about")
 	errorHTML = readHTML("error")
 
 	// Read colors file
-	b, err := ioutil.ReadFile("./static/json/colors.json")
+	b, err := ioutil.ReadFile("./static/colors.json")
 	if err != nil {
 		log.Fatal(err)
 	}

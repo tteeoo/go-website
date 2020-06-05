@@ -10,6 +10,7 @@ func main() {
 
 	// Handle routes
 	http.HandleFunc("/", handler.IndexHandler)
+	http.HandleFunc("/about", handler.AboutHandler)
 	http.HandleFunc("/static/", handler.StaticHandler)
 	http.HandleFunc("/api/projects", handler.ApiProjectHandler)
 

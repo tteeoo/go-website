@@ -3,11 +3,27 @@
     <head>
 	<meta charset="UTF-8">
 	<meta name="author" content="Theo Henson">
-	<!-- <link rel="stylesheet" type="text/css" href="/static/css/style.css"> -->
+	<link rel="stylesheet" type="text/css" href="/static/main.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!-- <link rel="shortcut icon" type="image/x-icon" href="/static/image/favicon.ico"> --> 
+	<link rel="shortcut icon" type="image/jpeg" href="/static/favicon.jpg"> 
+	<title>HTTP Error: {{.}}</title>
     </head>
     <body>
-	<h1>HTTP ERROR: {{.}}</h1>
+	<div id="wrapper">
+	    <h1 id="title">HTTP Error: {{.}}</h1>
+	    <div id="bar">
+		<a class="page-link" href="/">home</a>
+		<a class="page-link" href="/about">about</a>
+	    </div>
+	    <div id="body">
+		<p>
+		    An error occured.
+		</p>
+	    </div>
+	</div>
+	<div id="footer">
+	    <span id="copy">© 2020 Theo Henson</span>
+	    <a id="gh" href="https://github.com/tteeoo"><img src="/static/github.png"></a>
+	</div>
     </body>
 </html>
