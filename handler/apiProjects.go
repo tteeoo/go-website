@@ -11,7 +11,7 @@ import (
 )
 
 // Put projects to appear on projects page here
-var projects = []string{"rco", "sest", "go-website", "jschess", "claymore"}
+var projects = []string{"rco", "sest", "go-website", "jschess", "claymore", "solitaire"}
 
 var limiter = limit.NewIPRateLimiter(1, 1)
 var send = []byte{}
