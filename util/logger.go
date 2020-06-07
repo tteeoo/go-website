@@ -1,7 +1,6 @@
 package util
 
 import (
-	"bufio"
 	"io"
 	"log"
 	"os"
@@ -9,14 +8,8 @@ import (
 	"time"
 )
 
-var Logger logger
+var Logger *log.Logger
 var LogFile os.File
-var logFileBuffer *bufio.Writer
-var stdErrBuffer *bufio.Writer
-
-type logger struct {
-	wrappedLogger *log.Logger
-}
 
 func init() {
 
@@ -28,22 +21,5 @@ func init() {
 
 	LogFile.Sync()
 
-	logFileBuffer = bufio.NewWriter(LogFile)
-	stdErrBuffer = bufio.NewWriter(os.Stderr)
-	Logger = logger{
-		wrappedLogger: log.New(io.MultiWriter(logFileBuffer, stdErrBuffer), "", log.Ldate|log.Ltime),
-	}
-}
-
-func (l *logger) Println(text interface{}) {
-	l.wrappedLogger.Println(text)
-	logFileBuffer.Flush()
-	stdErrBuffer.Flush()
-}
-
-func (l *logger) Fatal(text interface{}) {
-	l.wrappedLogger.Println(text)
-	logFileBuffer.Flush()
-	stdErrBuffer.Flush()
-	os.Exit(1)
+	Logger = log.New(io.MultiWriter(LogFile, os.Stdout), "", log.Ldate|log.Ltime|log.Lshortfile)
 }
