@@ -37,6 +37,10 @@ body {
     color: #1111ee;
 }
 
+.center {
+    text-align: center;
+}
+
 #body {
     text-align: left;
     padding: 14px;
