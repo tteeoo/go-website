@@ -1,18 +1,15 @@
 package handler
 
 import (
-	"context"
 	"encoding/json"
 	"io/ioutil"
 	"log"
 	"os"
 
-	"github.com/google/go-github/github"
 	"github.com/tteeoo/go-website/util"
-	"golang.org/x/oauth2"
 )
 
-var client *github.Client
+var token string
 
 var colors map[string]string
 
@@ -58,16 +55,9 @@ func init() {
 	}
 
 	// Create GitHub client
-	token, exists := os.LookupEnv("GH_WEB_TOKEN")
+	var exists bool
+	token, exists = os.LookupEnv("GH_WEB_TOKEN")
 	if !exists {
 		util.Logger.Fatal("GH_WEB_TOKEN not in environment")
 	}
-
-	ctx := context.Background()
-	ts := oauth2.StaticTokenSource(
-		&oauth2.Token{AccessToken: token},
-	)
-	tc := oauth2.NewClient(ctx, ts)
-
-	client = github.NewClient(tc)
 }

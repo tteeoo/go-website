@@ -1,22 +1,22 @@
 package handler
 
 import (
-	"context"
 	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"net/http"
+	"strings"
 
 	"github.com/tteeoo/go-website/limit"
 	"github.com/tteeoo/go-website/util"
 )
 
-// Put projects to appear on projects page here
-var projects = []string{"rco", "sest", "go-website", "jschess", "claymore", "solitaire"}
+const query = "{ \"query\": \"query { user(login: \\\"tteeoo\\\") { pinnedItems(first: 6, types: [REPOSITORY]) { totalCount edges { node { ... on Repository { name url primaryLanguage { name } description } } } } } }\" }"
 
 var limiter = limit.NewIPRateLimiter(1, 1)
 var send = []byte{}
 
-type repo struct {
+type apiRepo struct {
 	Name  string
 	Color string
 	URL   string
@@ -24,13 +24,23 @@ type repo struct {
 	Lang  string
 }
 
-func goodProject(a string) bool {
-	for _, b := range projects {
-		if b == a {
-			return true
-		}
-	}
-	return false
+type ghGQLLang struct {
+	Name string `json:"name"`
+}
+
+type ghQGLRepoData struct {
+	Name            string    `json:"name"`
+	URL             string    `json:"url"`
+	Description     string    `json:"description"`
+	PrimaryLanguage ghGQLLang `json:"primaryLanguage"`
+}
+
+type ghQGLRepo struct {
+	Data ghQGLRepoData `json:"node"`
+}
+
+type ghGQLResponse struct {
+	Repos []ghQGLRepo `json:"edges"`
 }
 
 // APIProjectHandler handles the /api/projects page
@@ -47,51 +57,56 @@ func APIProjectHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Get all my repos
-	gRepos, _, err := client.Repositories.List(context.Background(), "tteeoo", nil)
+	// Use GH qraphql API
+	client := &http.Client{}
+	req, err := http.NewRequest("POST", "https://api.github.com/graphql", strings.NewReader(query))
+	if err != nil {
+		util.Logger.Println(err)
+		ErrorHandler(w, r, http.StatusInternalServerError)
+	}
+	req.Header.Add("Authorization", "bearer "+token)
+	resp, err := client.Do(req)
 	if err != nil {
 		util.Logger.Println(err)
 		ErrorHandler(w, r, http.StatusInternalServerError)
 	}
 
-	// Iterate repos
-	var repos []repo
-	for _, gR := range gRepos {
+	// Read and deserialize response
+	defer resp.Body.Close()
+	b, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		util.Logger.Println(err)
+		ErrorHandler(w, r, http.StatusInternalServerError)
+	}
+	var data map[string]map[string]map[string]ghGQLResponse
+	err = json.Unmarshal(b, &data)
+	if err != nil {
+		util.Logger.Println(string(b))
+		util.Logger.Println(err)
+		ErrorHandler(w, r, http.StatusInternalServerError)
+	}
 
-		// continue if in is not in projects
-		if !goodProject(*gR.Name) {
-			continue
+	// Construct API response
+	var apiRepos []*apiRepo
+	repos := data["data"]["user"]["pinnedItems"].Repos
+	for _, repo := range repos {
+		r := &apiRepo{
+			Name: repo.Data.Name,
+			Desc: repo.Data.Description,
+			URL:  repo.Data.URL,
+			Lang: repo.Data.PrimaryLanguage.Name,
 		}
-
-		re := repo{
-			Name: *gR.Name,
-			URL:  *gR.HTMLURL,
-		}
-
-		// Ensure there are no nil pointers before dereferencing
-		// Set fallback color if the language isn't in colors or is nil
-		if gR.Language != nil {
-			re.Lang = *gR.Language
-
-			color, exists := colors[*gR.Language]
-			if !exists {
-				re.Color = "background-color: #383838"
-			} else {
-				re.Color = "background-color: " + color
-			}
+		color, exists := colors[repo.Data.PrimaryLanguage.Name]
+		if !exists {
+			r.Color = "background-color: #383838"
 		} else {
-			re.Color = "background-color: #383838"
+			r.Color = "background-color: " + color
 		}
-
-		if gR.Description != nil {
-			re.Desc = *gR.Description
-		}
-
-		repos = append(repos, re)
+		apiRepos = append(apiRepos, r)
 	}
 
 	// Send repos as JSON
-	send, err = json.Marshal(repos)
+	send, err = json.Marshal(apiRepos)
 	if err != nil {
 		util.Logger.Println(err)
 		ErrorHandler(w, r, http.StatusInternalServerError)
