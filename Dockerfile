@@ -1,10 +1,15 @@
-# sudo docker build -t go-website .
-# sudo docker run -dit -e WEB_ADDR=foo -e GH_WEB_TOKEN=bar -v /var/log/go-website:/go/src/app/log -p 8000:80 --name go-website go-website
-FROM golang:1.13
+# To listen on local port 8000 (change "8000" in the -p option to change the port):
+#  docker build -t go-website .
+#  docker run -dit -e WEB_ADDR=0.0.0.0:80 -v /var/log/go-website:/go/src/go-website/log -p 127.0.0.1:8000:80/tcp --name go-website go-website
 
-WORKDIR /go/src/app
+# Remove "127.0.0.1:" from the -p option to fully expose the port (don't do if you're using a reverse-proxy).
+# Change the path before the color in the -v option to change the log file location.
+
+FROM golang:1.15
+
+WORKDIR /go/src/go-website
 COPY . .
-RUN mkdir /go/src/app/log
+RUN mkdir /go/src/go-website/log
 
 RUN go install .
 

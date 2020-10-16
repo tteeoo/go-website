@@ -12,10 +12,9 @@ type errorPage struct {
 	Text  string
 }
 
-// ErrorHandler handles errors by taking a status code and rendering a template with text
+// ErrorHandler handles errors by taking a status code and rendering a template with text.
 func ErrorHandler(w http.ResponseWriter, r *http.Request, status int) {
 
-	// Protect log file from too many requests
 	util.Logger.Println("ERROR: " + util.GetRemoteAddr(r) + " " + strconv.Itoa(status))
 
 	w.WriteHeader(status)
@@ -23,6 +22,7 @@ func ErrorHandler(w http.ResponseWriter, r *http.Request, status int) {
 	// Fill in error template with the error nubmer and text
 	t, err := template.New("error").Parse(errorHTML)
 	if err != nil {
+		// If this errors then bad stuff will likely happen
 		ErrorHandler(w, r, http.StatusInternalServerError)
 		return
 	}
@@ -35,6 +35,5 @@ func ErrorHandler(w http.ResponseWriter, r *http.Request, status int) {
 	err = t.Execute(w, ep)
 	if err != nil {
 		ErrorHandler(w, r, http.StatusInternalServerError)
-		return
 	}
 }
