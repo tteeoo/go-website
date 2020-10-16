@@ -1,18 +1,12 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<meta name="author" content="Theo Henson">
-		<meta name="description" content="Theo Henson's home on the World Wide Web!">
-		<meta name="keywords" content="Theo, Henson, Theodore, Personal, Website">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-		<link rel="stylesheet" type="text/css" href="/static/global.css">
-		<link rel="shortcut icon" type="image/png" href="/static/favicon.png"> 
-
-		<title>Theo Henson's Website</title>
-	</head>
-	<body>
-		<h1>Error {{.Errno}} {{.Text}}</h1>
-	</body>
-</html>
+<meta name="description" content="Theo Henson's home on the World Wide Web!">
+<meta name="keywords" content="Theo, Henson, Theodore, Personal, Website">
+<title>Theo Henson's Website</title>
+</head>
+<body>
+<div id="wrapper">
+	<div id="content">
+		<h1>{{.Errno}} {{.Text}}</h1>
+		<p>
+			An error has been encountered. Perhaps you've entered something invalid, or it may be something wrong on the server's end.
+		</p>
+	</div>
