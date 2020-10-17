@@ -5,8 +5,14 @@ html, body {
 
 body {
 	line-height: 1.4em;
-	font-family: sans-serif;
+	font-family: "Roboto", sans-serif;
 	color: #333333;
+	background-color: #ffffff;
+}
+
+@font-face {
+	font-family: "Roboto";
+	src: url(/static/Roboto-Regular.ttf);
 }
 
 h3 {
@@ -47,13 +53,13 @@ a {
 
 .nav-link {
 	display: block;
-	margin: 10px 0;
+	margin: 10px 4px;
 }
 
 #nav-home {
 	display: none;
 	color: #0099ee;
-	margin: 8px 0;
+	margin: 2px 8px;
 }
 
 #nav-img {
@@ -68,7 +74,7 @@ a {
 	}
 	.nav-link {
 		display: inline-block;
-		margin: 0 8px;
+		margin: 2px 8px;
 	}
 	#nav {
 		margin-bottom: 0;
