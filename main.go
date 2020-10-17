@@ -23,6 +23,7 @@ func main() {
 	http.HandleFunc("/", handler.IndexHandler)
 	http.HandleFunc("/robots.txt", handler.FileHandler)
 	http.HandleFunc("/sitemap.xml", handler.FileHandler)
+	http.HandleFunc("/favicon.ico", handler.FileHandler)
 	http.HandleFunc("/static/", handler.FileHandler)
 
 	// Start the server
