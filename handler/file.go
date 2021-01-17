@@ -1,9 +1,9 @@
 package handler
 
 import (
-	"os"
-	"net/http"
 	"github.com/tteeoo/go-website/util"
+	"net/http"
+	"os"
 )
 
 // FileHandler handles static files.
@@ -18,7 +18,7 @@ func FileHandler(w http.ResponseWriter, r *http.Request) {
 		dir = "static"
 	}
 
-	if _, err := os.Stat(dir+r.URL.Path); err != nil {
+	if _, err := os.Stat(dir + r.URL.Path); err != nil {
 		ErrorHandler(w, r, http.StatusNotFound)
 		return
 	}

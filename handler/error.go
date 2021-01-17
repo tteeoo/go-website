@@ -19,7 +19,7 @@ func ErrorHandler(w http.ResponseWriter, r *http.Request, status int) {
 
 	w.WriteHeader(status)
 
-	// Fill in error template with the error nubmer and text
+	// Fill in error template with the error number and text
 	t, err := template.New("error").Parse(html["top"] + html["error"] + html["bottom"])
 	if err != nil {
 		// If this errors then bad stuff will likely happen

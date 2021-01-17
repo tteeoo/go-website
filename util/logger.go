@@ -1,7 +1,6 @@
 package util
 
 import (
-	"net/http"
 	"io"
 	"log"
 	"os"
@@ -9,7 +8,10 @@ import (
 	"time"
 )
 
+// Logger is the configured logging struct
 var Logger *log.Logger
+
+// LogFile is the file the log is written to
 var LogFile os.File
 
 func init() {
@@ -22,11 +24,4 @@ func init() {
 
 	LogFile.Sync()
 	Logger = log.New(io.MultiWriter(LogFile, os.Stdout), "", log.Ldate|log.Ltime)
-}
-
-// LoggerMiddleware logs all hits to a handler.
-func LoggerMiddleware(handle func(w http.ResponseWriter, r *http.Request)) func(w http.ResponseWriter, r *http.Request) {
-	return func(w http.ResponseWriter, r *http.Request) {
-		handle(w, r)
-	}
 }

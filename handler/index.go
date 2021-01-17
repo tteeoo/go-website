@@ -2,8 +2,8 @@ package handler
 
 import (
 	"fmt"
-	"net/http"
 	"github.com/tteeoo/go-website/util"
+	"net/http"
 )
 
 // IndexHandler handles the / page.
@@ -12,7 +12,7 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	util.Logger.Println("HIT: " + util.GetRemoteAddr(r) + " " + r.RequestURI)
 
 	if r.URL.Path == "/" {
-		fmt.Fprint(w, html["top"] + html["index"] + html["bottom"])
+		fmt.Fprint(w, html["top"]+html["index"]+html["bottom"])
 		return
 	}
 
@@ -22,5 +22,5 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Fprint(w, html["top"] + h + html["bottom"])
+	fmt.Fprint(w, html["top"]+h+html["bottom"])
 }
